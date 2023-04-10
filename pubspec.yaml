@@ -59,6 +59,8 @@ dependencies:
   shared_preferences:
   dio:
   curl_logger_dio_interceptor:
+  firebase_core:
+  firebase_auth: ^4.4.0
 
 dev_dependencies:
   flutter_test:
