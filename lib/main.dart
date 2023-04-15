@@ -1,3 +1,4 @@
+import 'package:clinicdoctor/viewmodel/cubit/auth_cubit/auth_cubit.dart';
 import 'package:clinicdoctor/viewmodel/cubit/layout_cubit/layout_cubit.dart';
 import 'package:clinicdoctor/viewmodel/database/CacheHelper.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         return MultiBlocProvider(
           providers: [
             BlocProvider(create: (context) => LayoutCubit()),
+            BlocProvider(create: (context) => AuthCubit()),
           ],
           child: MaterialApp(
             debugShowCheckedModeBanner: false,

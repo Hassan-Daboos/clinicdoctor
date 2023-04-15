@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../model/patient_booked_apponitments_model.dart';
 import '../../../view/screens/layouthome/aboutusScreens/AboutusScreen.dart';
 import '../../../view/screens/layouthome/homescreen/HomeScreen.dart';
 import '../../../view/screens/layouthome/profileScreens/ProfileScreen.dart';
@@ -46,6 +47,34 @@ class LayoutCubit extends Cubit<LayoutStates>{
  //      .subTitle[index2]
  //      .select;
  //  });
+  List<PatientBookedAppointmentModel> patientMedicalHistoryModel = [];
+
+
+  // Future<void> getPatientsBookedAppointments() async {
+  //   patientMedicalHistoryModel = [];
+  //   emit(PatientMedicalHistoryLoadingState());
+  //
+  //   await FirebaseFirestore.instance
+  //       .collection('medicalHistory')
+  //       .where(
+  //     'userId',
+  //     isEqualTo: FirebaseAuth.instance.currentUser!.uid,
+  //   )
+  //       .get()
+  //       .then((value) {
+  //     value.docs.forEach((element) {
+  //       patientMedicalHistoryModel
+  //           .add(MedicalHistoryModel.fromMap(element.data()));
+  //     });
+  //
+  //     emit(PatientMedicalHistorySuccessState());
+  //   }).catchError((onError) {
+  //     print(onError.toString());
+  //     print('Amr');
+  //     emit(PatientMedicalHistoryErrorState());
+  //   });
+  // }
+
 
 
 }
