@@ -18,14 +18,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  var uidTw =CacheHelper.get(key: 'uid');
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    print('${FirebaseAuth.instance.currentUser!.uid}');
-
-  }
+  // var uidTw =CacheHelper.get(key: 'uid');
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   print('${FirebaseAuth.instance.currentUser!.uid}');
+  //
+  // }
 
   @override
   Widget build(BuildContext context) {

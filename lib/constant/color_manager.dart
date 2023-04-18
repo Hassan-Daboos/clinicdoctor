@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
    const Color textGray = Color(0xff8F8F8F);
    const Color textcolor = Color(0xff00384F);
+   const Color textseccolor = Color(0xff1E3A64);
    const Color maincolor = Color(0xff69D7C4);
    const Color textParagraph = Color(0xff3A3A3A);
      const Color orange = Color(0xffFF6600);
