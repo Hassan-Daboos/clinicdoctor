@@ -160,7 +160,6 @@ class LoginScreen extends StatelessWidget {
                                   buttonColor: maincolor,
                                   borderRadius: 7,
                                   onPressed: () {
-                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LayoutScreen()));
 
                                     // Authentication.mailSignIn("hassan@gmail.com","H@ssan123");
                                     if (formKey.currentState!.validate()) {

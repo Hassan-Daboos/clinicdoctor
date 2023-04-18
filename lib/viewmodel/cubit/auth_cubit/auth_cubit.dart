@@ -69,6 +69,7 @@ class AuthCubit extends Cubit<AuthStates> {
           .get()
           .then((value) async {
         userModel = UserModel.fromMap(value.data()!);
+        print(values.user!.uid);
         // save user id in cashHelper
         emit(UserLoginSuccess(values.user!.uid));
         // here i will store user data in userModel

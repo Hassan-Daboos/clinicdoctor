@@ -12,8 +12,20 @@ import '../authentication/loginScreen.dart';
 import '../layouthome/layoutScreen.dart';
 import 'onBoard_screen.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
   var uidTw =CacheHelper.get(key: 'uid');
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print('${FirebaseAuth.instance.currentUser!.uid}');
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +38,7 @@ class SplashScreen extends StatelessWidget {
       pageTransitionType: PageTransitionType.leftToRight,
       splash: Image.asset("$logoSplashSvg"),
       nextScreen: onBoard
-          ? uidTw.trim().toString() == FirebaseAuth.instance.currentUser!.uid.toString()
+          ? CacheHelper.get(key: 'uid') == FirebaseAuth.instance.currentUser!.uid.toString()
           ? LayoutScreen()
           : LoginScreen()
           : OnBoardScreen(),
