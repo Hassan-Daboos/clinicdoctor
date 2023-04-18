@@ -15,6 +15,7 @@ import 'view/screens/authentication/loginScreen.dart';
 import 'view/screens/layouthome/aboutusScreens/EditprofileScreen.dart';
 import 'view/screens/layouthome/layoutScreen.dart';
 import 'view/screens/layouthome/profileScreens/MedicalHistoryScreen.dart';
+bool onBoard =false;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +23,15 @@ Future<void> main() async {
   await CacheHelper.init();
   // await DioHelper.init();
   Bloc.observer = MyBlocObserver();
+  var onBoarding =CacheHelper.get(key: 'onBoard');
 
+  if(onBoarding !=null)
+  {
+    onBoard =true;
+  }else
+  {
+    onBoard =false;
+  }
   runApp(const MyApp());
 }
 

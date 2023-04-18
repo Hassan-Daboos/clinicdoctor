@@ -21,3 +21,20 @@ class DeleteAllSessionsSuccessState extends LayoutStates {}
 class DeleteAllSessionsErrorState extends LayoutStates {
 
 }
+class PatientsInfoLoadingState extends LayoutStates {}
+class PatientsInfoSuccessState extends LayoutStates {}
+class PatientsInfoErrorState extends LayoutStates {
+
+}
+
+class PatientMedicalHistoryLoadingState extends LayoutStates {}
+class PatientMedicalHistorySuccessState extends LayoutStates {}
+class PatientMedicalHistoryErrorState extends LayoutStates {
+
+}
+class GetReservationLoadingState extends LayoutStates {}
+class GetReservationSuccessState extends LayoutStates {}
+class GetReservationErrorState extends LayoutStates {
+
+}
+

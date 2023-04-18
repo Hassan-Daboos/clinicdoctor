@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:clinicdoctor/viewmodel/cubit/layout_cubit/layout_cubit.dart';
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timeline_list/timeline.dart';
 import 'package:timeline_list/timeline_model.dart';
 
@@ -19,11 +21,16 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen>
-    with SingleTickerProviderStateMixin {
-  int segmentedControlGroupValue = 0;
-
+    {
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    LayoutCubit.get(context).getPatients();
+  }
   @override
   Widget build(BuildContext context) {
+  var layoutCubit = BlocProvider.of<LayoutCubit>(context,listen: true);
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
@@ -31,185 +38,43 @@ class _ProfileScreenState extends State<ProfileScreen>
         centerTitle: true,
         backgroundColor: Colors.transparent,
         title: CustomText(
-          text: 'Patient profile',
+          text: 'Patients',
           fontSize: 25,
           color: textcolor,
           fontWeight: FontWeight.bold,
         ),
-        // actions: [
-        //   IconButton(
-        //       onPressed: () {
-        //         NavigationService.instance.navigationKey!.currentState!
-        //             .pushNamed(
-        //           "EditprofileScreen",
-        //         );
-        //       },
-        //       icon: Icon(
-        //         Icons.edit,
-        //         color: textcolor,
-        //       ))
-        //
-        //
-        // ],
+
       ),
-      body: ListView(
-        children: [
-          Card(
-            child: ListTile(
-              onTap: () {
-                NavigationService.instance.navigationKey!.currentState!
-                    .pushNamed(
-                  "MedicalHistoryScreen",
-                );
-              },
-              leading: CircleAvatar(
-                radius: 56,
-                backgroundColor: textcolor,
-                child: Padding(
-                  padding: const EdgeInsets.all(4), // Border radius
-                  child: ClipOval(
-                      child:
-                          Image.network('https://i.stack.imgur.com/0VpX0.png')),
-                ),
-              ),
-              // leading: CircleAvatar(
-              //   radius: 45,
-              //   backgroundColor: Colors.deepOrangeAccent,
-              //   child: ClipOval(
-              //     child: CachedNetworkImage(
-              //       imageUrl: "https://i.stack.imgur.com/0VpX0.png",
-              //       fit: BoxFit.cover,
-              //       width: 80,
-              //       height: 80,
-              //     ),
-              //   ),
-              // ),
-              title: CustomText(
-                text: 'Hassan Mohamed',
-                fontSize: 16,
-                color: textcolor,
-                fontWeight: FontWeight.bold,
-              ),
-              subtitle: CustomText(
-                text: '8/9/2022',
-                fontSize: 14,
-                color: textcolor,
-              ),
+      body: ListView.builder(itemBuilder: (context,index)=> Card(
+        child: ListTile(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>MedicalHistoryScreen(userId: layoutCubit.patientModel[index].userId)));
+
+          },
+          leading: CircleAvatar(
+            radius: 56,
+            backgroundColor: textcolor,
+            child: Padding(
+              padding: const EdgeInsets.all(4), // Border radius
+              child: ClipOval(
+                  child:
+                  Image.network(layoutCubit.patientModel[index].photo)),
             ),
           ),
-          Card(
-            child: ListTile(
-              leading: CircleAvatar(
-                radius: 56,
-                backgroundColor: textcolor,
-                child: Padding(
-                  padding: const EdgeInsets.all(4), // Border radius
-                  child: ClipOval(
-                      child:
-                          Image.network('https://i.stack.imgur.com/0VpX0.png')),
-                ),
-              ),
-              // leading: CircleAvatar(
-              //   radius: 45,
-              //   backgroundColor: Colors.deepOrangeAccent,
-              //   child: ClipOval(
-              //     child: CachedNetworkImage(
-              //       imageUrl: "https://i.stack.imgur.com/0VpX0.png",
-              //       fit: BoxFit.cover,
-              //       width: 80,
-              //       height: 80,
-              //     ),
-              //   ),
-              // ),
-              title: CustomText(
-                text: 'Hassan Mohamed',
-                fontSize: 16,
-                color: textcolor,
-                fontWeight: FontWeight.bold,
-              ),
-              subtitle: CustomText(
-                text: '8/9/2022',
-                fontSize: 14,
-                color: textcolor,
-              ),
-            ),
+
+          title: CustomText(
+            text: layoutCubit.patientModel[index].fullName,
+            fontSize: 16,
+            color: textcolor,
+            fontWeight: FontWeight.bold,
           ),
-          Card(
-            child: ListTile(
-              leading: CircleAvatar(
-                radius: 56,
-                backgroundColor: textcolor,
-                child: Padding(
-                  padding: const EdgeInsets.all(4), // Border radius
-                  child: ClipOval(
-                      child:
-                          Image.network('https://i.stack.imgur.com/0VpX0.png')),
-                ),
-              ),
-              // leading: CircleAvatar(
-              //   radius: 45,
-              //   backgroundColor: Colors.deepOrangeAccent,
-              //   child: ClipOval(
-              //     child: CachedNetworkImage(
-              //       imageUrl: "https://i.stack.imgur.com/0VpX0.png",
-              //       fit: BoxFit.cover,
-              //       width: 80,
-              //       height: 80,
-              //     ),
-              //   ),
-              // ),
-              title: CustomText(
-                text: 'Hassan Mohamed',
-                fontSize: 16,
-                color: textcolor,
-                fontWeight: FontWeight.bold,
-              ),
-              subtitle: CustomText(
-                text: '8/9/2022',
-                fontSize: 14,
-                color: textcolor,
-              ),
-            ),
+          subtitle: CustomText(
+            text: '8/9/2022',
+            fontSize: 14,
+            color: textcolor,
           ),
-          Card(
-            child: ListTile(
-              leading: CircleAvatar(
-                radius: 56,
-                backgroundColor: textcolor,
-                child: Padding(
-                  padding: const EdgeInsets.all(4), // Border radius
-                  child: ClipOval(
-                      child:
-                          Image.network('https://i.stack.imgur.com/0VpX0.png')),
-                ),
-              ),
-              // leading: CircleAvatar(
-              //   radius: 45,
-              //   backgroundColor: Colors.deepOrangeAccent,
-              //   child: ClipOval(
-              //     child: CachedNetworkImage(
-              //       imageUrl: "https://i.stack.imgur.com/0VpX0.png",
-              //       fit: BoxFit.cover,
-              //       width: 80,
-              //       height: 80,
-              //     ),
-              //   ),
-              // ),
-              title: CustomText(
-                text: 'Hassan Mohamed',
-                fontSize: 16,
-                color: textcolor,
-                fontWeight: FontWeight.bold,
-              ),
-              subtitle: CustomText(
-                text: '8/9/2022',
-                fontSize: 14,
-                color: textcolor,
-              ),
-            ),
-          ),
-        ],
-      ),
+        ),
+      ),shrinkWrap: true,itemCount: layoutCubit.patientModel.length,physics: BouncingScrollPhysics()),
     );
   }
 }

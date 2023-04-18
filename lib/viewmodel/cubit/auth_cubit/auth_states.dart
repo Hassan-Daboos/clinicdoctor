@@ -9,7 +9,11 @@ class RegisterErrorState extends AuthStates {
   RegisterErrorState(this.msg);
 }
 class UserLoginLoading extends AuthStates {}
-class UserLoginSuccess extends AuthStates {}
+class UserLoginSuccess extends AuthStates {
+  String uid;
+
+  UserLoginSuccess(this.uid);
+}
 class UserLoginError extends AuthStates {
   String msg;
 

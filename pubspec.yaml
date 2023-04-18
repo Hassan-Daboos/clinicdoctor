@@ -59,10 +59,12 @@ dependencies:
   shared_preferences:
   dio:
   curl_logger_dio_interceptor:
-  firebase_core: ^2.3.0
+  intl:
+  firebase_core: ^2.9.0
   firebase_auth: ^4.4.0
   firebase_storage: ^11.0.3
   cloud_firestore: ^4.1.0
+  flutter_datetime_picker:
 
 dev_dependencies:
   flutter_test:

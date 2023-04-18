@@ -9,6 +9,7 @@ import '../../../constant/color_manager.dart';
 import '../../../constant/data.dart';
 import '../../../viewmodel/cubit/auth_cubit/auth_cubit.dart';
 import '../../../viewmodel/cubit/auth_cubit/auth_states.dart';
+import '../../../viewmodel/database/CacheHelper.dart';
 import '../../component/app_component/custom_button.dart';
 import '../../component/app_component/custom_text.dart';
 import '../../component/app_component/custom_text_form_filed.dart';
@@ -159,6 +160,7 @@ class LoginScreen extends StatelessWidget {
                                   buttonColor: maincolor,
                                   borderRadius: 7,
                                   onPressed: () {
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LayoutScreen()));
 
                                     // Authentication.mailSignIn("hassan@gmail.com","H@ssan123");
                                     if (formKey.currentState!.validate()) {
@@ -171,7 +173,11 @@ class LoginScreen extends StatelessWidget {
                             }, listener: (context,state){
                               if(state is UserLoginSuccess)
                               {
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LayoutScreen()));
+                                CacheHelper.put(key: 'uid', value: state.uid).then((value)
+                                {
+                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>LayoutScreen()));
+
+                                });
                               }if(state is UserLoginError)
                               {
                                 showToast(state.msg);
@@ -179,38 +185,39 @@ class LoginScreen extends StatelessWidget {
                             }),
 
 
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height / 20,
-                            ),
-                            Center(
-                              child: RichText(
-                                text: TextSpan(
-                                  style: const TextStyle(
-                                    color: BlackArrowBack,
-                                    fontSize: 14,
-                                  ),
-                                  children: <TextSpan>[
-                                    const TextSpan(
-                                        text: "Don't Have an account? ",
-                                        style: TextStyle(
-                                            color: textcolor
-                                        )
-                                    ),
-                                    TextSpan(
-                                        text: 'Sign Up',
-                                        style: TextStyle(
-                                          color: maincolor,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 14,
-                                        ),
-                                        recognizer: TapGestureRecognizer()
-                                          ..onTap = () {
-                                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignupScreen()));
-                                                                                 }),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            // SizedBox(
+                            //   height: MediaQuery.of(context).size.height / 20,
+                            // ),
+                            // Center(
+                            //   child: RichText(
+                            //     text: TextSpan(
+                            //       style: const TextStyle(
+                            //         color: BlackArrowBack,
+                            //         fontSize: 14,
+                            //       ),
+                            //       children: <TextSpan>[
+                            //         const TextSpan(
+                            //             text: "Don't Have an account? ",
+                            //             style: TextStyle(
+                            //                 color: textcolor
+                            //             )
+                            //         ),
+                            //         TextSpan(
+                            //             text: 'Sign Up',
+                            //             style: TextStyle(
+                            //               color: maincolor,
+                            //               fontWeight: FontWeight.bold,
+                            //               fontSize: 14,
+                            //             ),
+                            //             recognizer: TapGestureRecognizer()
+                            //               ..onTap = () {
+                            //               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignupScreen()));
+                            //
+                            //                                                      }),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         )),
                   ),

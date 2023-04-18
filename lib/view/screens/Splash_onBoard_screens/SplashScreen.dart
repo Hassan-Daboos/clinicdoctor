@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,12 +6,14 @@ import 'package:page_transition/page_transition.dart';
 
 import '../../../constant/assets.dart';
 import '../../../constant/color_manager.dart';
+import '../../../main.dart';
 import '../../../viewmodel/database/CacheHelper.dart';
+import '../authentication/loginScreen.dart';
 import '../layouthome/layoutScreen.dart';
 import 'onBoard_screen.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  var uidTw =CacheHelper.get(key: 'uid');
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +25,10 @@ class SplashScreen extends StatelessWidget {
       splashTransition: SplashTransition.fadeTransition,
       pageTransitionType: PageTransitionType.leftToRight,
       splash: Image.asset("$logoSplashSvg"),
-      nextScreen: (CacheHelper.get(key: "loged") == true)
+      nextScreen: onBoard
+          ? uidTw.trim().toString() == FirebaseAuth.instance.currentUser!.uid.toString()
           ? LayoutScreen()
+          : LoginScreen()
           : OnBoardScreen(),
     );
     // return Container(

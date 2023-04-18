@@ -4,11 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 
-import '../../../../constant/NavigationService.dart';
 import '../../../../constant/assets.dart';
 import '../../../../constant/color_manager.dart';
 import '../../../../constant/fun.dart';
-import '../../../../viewmodel/database/CacheHelper.dart';
 import '../../../component/app_component/custom_text.dart';
 
 class AboutusScreen extends StatelessWidget {
@@ -28,31 +26,6 @@ class AboutusScreen extends StatelessWidget {
           color: textcolor,
           fontWeight: FontWeight.bold,
         ),
-        leading:IconButton(
-            onPressed: () {
-              CacheHelper.put(key: 'loged', value: false);
-
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  'LoginScreen',
-                      (Route<dynamic> route) => false);
-            },
-            icon: Icon(
-              Icons.exit_to_app_outlined,
-              color: textcolor,
-            )),
-        actions: [
-          IconButton(
-              onPressed: () {
-                NavigationService.instance.navigationKey!.currentState!
-                    .pushNamed(
-                  "EditprofileScreen",
-                );
-              },
-              icon: Icon(
-                Icons.edit,
-                color: textcolor,
-              ))
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -111,7 +84,7 @@ class AboutusScreen extends StatelessWidget {
                               onPressed: () {
                                 Functional.launchSocialMediaAppIfInstalled(
                                   url:
-                                      'https://www.facebook.com/avey.pal/', // Facebook
+                                  'https://www.facebook.com/avey.pal/', // Facebook
                                 );
                               },
                               icon: SvgPicture.asset(
@@ -120,7 +93,7 @@ class AboutusScreen extends StatelessWidget {
                               onPressed: () {
                                 Functional.launchSocialMediaAppIfInstalled(
                                   url:
-                                      'https://www.facebook.com/avey.pal/', // Facebook
+                                  'https://www.facebook.com/avey.pal/', // Facebook
                                 );
                               },
                               icon: SvgPicture.asset(
@@ -128,7 +101,7 @@ class AboutusScreen extends StatelessWidget {
                           IconButton(
                               onPressed: () {
                                 Functional.launchWhatsApp(
-                                    phone: 03452121308, message: 'Hello');
+                                    phone: "+201018440919", message: 'Hello');
                               },
                               icon: SvgPicture.asset(
                                   "assets/icons/icons8-whatsapp.svg")),
@@ -142,7 +115,7 @@ class AboutusScreen extends StatelessWidget {
                               onPressed: () {
                                 Functional.launchSocialMediaAppIfInstalled(
                                   url:
-                                      'https://www.linkedin.com/company/avey-ai/', // Facebook
+                                  'https://www.linkedin.com/company/avey-ai/', // Facebook
                                 );
                               },
                               icon: SvgPicture.asset(
