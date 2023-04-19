@@ -14,6 +14,7 @@ import '../../../model/user_model.dart';
 import '../../../view/screens/layouthome/aboutusScreens/AboutusScreen.dart';
 import '../../../view/screens/layouthome/homescreen/HomeScreen.dart';
 import '../../../view/screens/layouthome/profileScreens/ProfileScreen.dart';
+import '../../database/dio_helper.dart';
 import 'layout_states.dart';
 
 
@@ -91,6 +92,40 @@ class LayoutCubit extends Cubit<LayoutStates>{
       emit(PatientMedicalHistoryErrorState());
     });
   }
+  Future<void> getDisease() async {
+
+    emit(DiseaseLoadingState());
+
+
+    try {
+      // Initialize Dio client
+      Dio dio = Dio();
+
+      // Define the API URL and parameters
+      String url = 'http://tonymalak.pythonanywhere.com/';
+      List<String> input = ['itching', 'skin_rash', 'nodal_skin_eruptions'];
+      Map<String, dynamic> params = {'input': input};
+
+      // Make the HTTP request
+      Response response = await dio.get(url, queryParameters: params);
+
+      // Check if the request was successful
+      if (response.statusCode == 200) {
+        // Parse the response data
+        Map<String, dynamic> data = response.data;
+
+        // Do something with the data
+        print(data);
+      } else {
+        // Handle the error
+        print('Request failed with status code: ${response.statusCode}');
+      }
+    } catch (error) {
+      // Handle any errors that occurred during the request
+      print('Error occurred: $error');
+    }
+
+  }
   List<ReservationModel> reservationModel =[];
   DateTime checkTime =DateTime.now();
 
@@ -121,9 +156,9 @@ class LayoutCubit extends Cubit<LayoutStates>{
             DateTime.now().year,
             DateTime.now().month,
             DateTime.now().day,
-            DateFormat('hh:mm:ss ').parse(elementOne.data()['time']).hour,
-            DateFormat('hh:mm:ss ').parse(elementOne.data()['time']).minute,
-            DateFormat('hh:mm:ss ').parse(elementOne.data()['time']).second,
+            DateFormat('hh:mm:ss a').parse(elementOne.data()['time']).hour,
+            DateFormat('hh:mm:ss a').parse(elementOne.data()['time']).minute,
+            DateFormat('hh:mm:ss a').parse(elementOne.data()['time']).second,
           );
           if (dateTime == DateTime.now()) {
             print('The dates are equal');
@@ -132,13 +167,14 @@ class LayoutCubit extends Cubit<LayoutStates>{
           } else if (dateTime.isBefore(DateTime.now())) {
             print('The date in the string is earlier');
             print(dateTime);
-            print(elementOne.data());
-            reservationModel
-                .add(ReservationModel.fromMap(elementOne.data()));
+
+            deleteDoc(doc: elementOne.id);
           } else {
             print(dateTime);
-            deleteDoc(doc: elementOne.id);
-            //delete
+
+            reservationModel
+                .add(ReservationModel.fromMap(elementOne.data()));
+
             print('The date in the string is later');
           }
 

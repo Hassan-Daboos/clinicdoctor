@@ -32,6 +32,11 @@ class PatientMedicalHistorySuccessState extends LayoutStates {}
 class PatientMedicalHistoryErrorState extends LayoutStates {
 
 }
+class DiseaseLoadingState extends LayoutStates {}
+class DiseaseSuccessState extends LayoutStates {}
+class DiseaseErrorState extends LayoutStates {
+
+}
 class GetReservationLoadingState extends LayoutStates {}
 class GetReservationSuccessState extends LayoutStates {}
 class GetReservationErrorState extends LayoutStates {

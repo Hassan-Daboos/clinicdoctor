@@ -1,4 +1,6 @@
+import 'package:clinicdoctor/viewmodel/cubit/layout_cubit/layout_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../constant/color_manager.dart';
 import '../../../component/app_component/custom_button.dart';
@@ -19,6 +21,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var layoutCubit = BlocProvider.of<LayoutCubit>(context,listen: true);
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       // appBar: AppBar(
@@ -116,6 +119,7 @@ class _DiagnosisScreenState extends State<DiagnosisScreen> {
                             buttonColor: maincolor,
                             borderRadius: 5,
                             onPressed: () {
+                            layoutCubit.getDisease();
                               if (formKey.currentState!.validate()) {
                                 print("objectvald");
                               }

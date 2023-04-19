@@ -51,14 +51,14 @@ class _ProfileScreenState extends State<ProfileScreen>
             Navigator.push(context, MaterialPageRoute(builder: (context)=>MedicalHistoryScreen(userId: layoutCubit.patientModel[index].userId)));
 
           },
-          leading: CircleAvatar(
-            radius: 56,
-            backgroundColor: textcolor,
-            child: Padding(
-              padding: const EdgeInsets.all(4), // Border radius
-              child: ClipOval(
-                  child:
-                  Image.network(layoutCubit.patientModel[index].photo)),
+          leading:  Container(
+            height: 60,
+            width: 60,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            decoration: BoxDecoration(shape: BoxShape.circle),
+            child: Image.network(
+              layoutCubit.patientModel[index].photo,
+              fit: BoxFit.cover,
             ),
           ),
 

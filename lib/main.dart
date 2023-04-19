@@ -1,6 +1,7 @@
 import 'package:clinicdoctor/viewmodel/cubit/auth_cubit/auth_cubit.dart';
 import 'package:clinicdoctor/viewmodel/cubit/layout_cubit/layout_cubit.dart';
 import 'package:clinicdoctor/viewmodel/database/CacheHelper.dart';
+import 'package:clinicdoctor/viewmodel/database/dio_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await CacheHelper.init();
-  // await DioHelper.init();
+  await DioHelper.init();
   Bloc.observer = MyBlocObserver();
   print('${FirebaseAuth.instance.currentUser!.uid}==============');
   var onBoarding =CacheHelper.get(key: 'onBoard');
