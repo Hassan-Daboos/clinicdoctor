@@ -241,7 +241,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                   {
                     NavigationService
                         .instance.navigationKey!.currentState!
-                        .pushNamed(
+                        .pushReplacementNamed(
                       "LoginScreen",
                     );
                   });

@@ -25,7 +25,6 @@ Future<void> main() async {
   await CacheHelper.init();
   await DioHelper.init();
   Bloc.observer = MyBlocObserver();
-  print('${FirebaseAuth.instance.currentUser!.uid}==============');
   var onBoarding =CacheHelper.get(key: 'onBoard');
 
   if(onBoarding !=null)

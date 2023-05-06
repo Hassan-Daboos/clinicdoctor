@@ -19,14 +19,24 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   var uidTw =CacheHelper.get(key: 'uid');
+  String? userId;
   @override
   void initState() {
     // TODO: implement initState
+    final currentUser = FirebaseAuth.instance.currentUser;
+
+    if (currentUser != null) {
+       userId = currentUser.uid;
+      // do something with uid
+    } else {
+      userId ='null';
+      // handle the case where currentUser is null
+    }
+
     super.initState();
-    print('${FirebaseAuth.instance.currentUser!.uid}');
 
   }
-
+//kingebada05@gmail.com
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
@@ -38,7 +48,7 @@ class _SplashScreenState extends State<SplashScreen> {
       pageTransitionType: PageTransitionType.leftToRight,
       splash: Image.asset("$logoSplashSvg"),
       nextScreen: onBoard
-          ? CacheHelper.get(key: 'uid') == FirebaseAuth.instance.currentUser!.uid.toString()
+          ? CacheHelper.get(key: 'uid') == userId
           ? LayoutScreen()
           : LoginScreen()
           : OnBoardScreen(),

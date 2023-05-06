@@ -51,6 +51,11 @@ class AuthCubit extends Cubit<AuthStates> {
       print(e.toString());
     });
   }
+  bool isPassword =true;
+  changeEyeIcon(){
+    isPassword =!isPassword;
+    emit(ChangeEyeIcon());
+  }
 
   Future<void> loginUser({
     required String email,

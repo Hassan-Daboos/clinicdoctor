@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+import '../../../model/ai_model.dart';
 import '../../../model/medical_history_model.dart';
 import '../../../model/patient_booked_apponitments_model.dart';
 import '../../../model/reservation_model.dart';
@@ -92,38 +93,29 @@ class LayoutCubit extends Cubit<LayoutStates>{
       emit(PatientMedicalHistoryErrorState());
     });
   }
-  Future<void> getDisease() async {
+  Diagnosis? aiModel;
+  DiagnosesResponse? diagnosesResponse;
+  Future<void> getDisease( List<String> inputs) async {
 
     emit(DiseaseLoadingState());
 
 
-    try {
-      // Initialize Dio client
-      Dio dio = Dio();
 
-      // Define the API URL and parameters
-      String url = 'http://tonymalak.pythonanywhere.com/';
-      List<String> input = ['itching', 'skin_rash', 'nodal_skin_eruptions'];
-      Map<String, dynamic> params = {'input': input};
+    String queryParam = inputs.map((input) => "'$input'").toList().join(",");
+    String url = "http://tonymalak.pythonanywhere.com/?input=[$queryParam]";
 
-      // Make the HTTP request
-      Response response = await dio.get(url, queryParameters: params);
+    await Dio().get(url).then((value) {
+      print(value.data);
+      diagnosesResponse= DiagnosesResponse.fromJson(value.data);
 
-      // Check if the request was successful
-      if (response.statusCode == 200) {
-        // Parse the response data
-        Map<String, dynamic> data = response.data;
+      emit(DiseaseSuccessState());
 
-        // Do something with the data
-        print(data);
-      } else {
-        // Handle the error
-        print('Request failed with status code: ${response.statusCode}');
-      }
-    } catch (error) {
-      // Handle any errors that occurred during the request
-      print('Error occurred: $error');
-    }
+
+    }).catchError((onError){
+      print(onError);
+      emit(DiseaseErrorState());
+
+    });
 
   }
   List<ReservationModel> reservationModel =[];
