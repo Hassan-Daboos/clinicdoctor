@@ -145,27 +145,35 @@ class LayoutCubit extends Cubit<LayoutStates>{
       {
         value.docs.forEach((elementOne) {
           DateTime dateTime = DateTime(
-            DateTime.now().year,
-            DateTime.now().month,
-            DateTime.now().day,
+            checkTime.year,
+            checkTime.month,
+            checkTime.day,
             DateFormat('hh:mm:ss a').parse(elementOne.data()['time']).hour,
             DateFormat('hh:mm:ss a').parse(elementOne.data()['time']).minute,
             DateFormat('hh:mm:ss a').parse(elementOne.data()['time']).second,
+          );
+          var dateTime2 = DateTime(
+            checkTime.year,
+            checkTime.month,
+            checkTime.day,
+            22, // 5 PM is hour 17 in 24-hour time
+            0,
+            0,
           );
           if (dateTime == DateTime.now()) {
             print('The dates are equal');
             deleteDoc(doc: elementOne.id);
             //delete
-          } else if (dateTime.isBefore(DateTime.now())) {
+          } else if (dateTime.isBefore(dateTime2)) {
             print('The date in the string is earlier');
             print(dateTime);
 
-            deleteDoc(doc: elementOne.id);
+            reservationModel.add(ReservationModel.fromMap(elementOne.data()));
           } else {
             print(dateTime);
 
-            reservationModel
-                .add(ReservationModel.fromMap(elementOne.data()));
+            deleteDoc(doc: elementOne.id);
+
 
             print('The date in the string is later');
           }
