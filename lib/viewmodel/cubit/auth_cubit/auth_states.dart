@@ -1,6 +1,7 @@
 abstract class AuthStates {}
 
 class AuthInitialStates extends AuthStates {}
+class ChangeEyeIcon extends AuthStates {}
 class RegisterLoadingState extends AuthStates {}
 class RegisterSuccessState extends AuthStates {}
 class RegisterErrorState extends AuthStates {

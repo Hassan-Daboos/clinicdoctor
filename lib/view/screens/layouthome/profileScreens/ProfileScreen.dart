@@ -20,17 +20,17 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
-  @override
+class _ProfileScreenState extends State<ProfileScreen>
+    {
+@override
   void initState() {
     // TODO: implement initState
     super.initState();
     LayoutCubit.get(context).getPatients();
   }
-
   @override
   Widget build(BuildContext context) {
-    var layoutCubit = BlocProvider.of<LayoutCubit>(context, listen: true);
+  var layoutCubit = BlocProvider.of<LayoutCubit>(context,listen: true);
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
@@ -43,48 +43,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
           color: textcolor,
           fontWeight: FontWeight.bold,
         ),
-      ),
-      body: ListView.builder(
-          itemBuilder: (context, index) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3,horizontal: 5),
-            child: Card(
-                  child: ListTile(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MedicalHistoryScreen(
-                                  userId:
-                                      layoutCubit.patientModel[index].userId)));
-                    },
 
-                    leading: Container(
-                      height: 60,
-                      width: 60,
-                      clipBehavior: Clip.antiAliasWithSaveLayer,
-                      decoration: BoxDecoration(shape: BoxShape.circle),
-                      child: Image.network(
-                        layoutCubit.patientModel[index].photo,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    title: CustomText(
-                      text: layoutCubit.patientModel[index].fullName,
-                      fontSize: 16,
-                      color: textcolor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    subtitle: CustomText(
-                      text: '8/9/2022',
-                      fontSize: 14,
-                      color: textcolor,
-                    ),
-                  ),
-                ),
+      ),
+      body: ListView.builder(itemBuilder: (context,index)=> Card(
+        child: ListTile(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>MedicalHistoryScreen(userId: layoutCubit.patientModel[index].userId)));
+
+          },
+          leading:  Container(
+            height: 60,
+            width: 60,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            decoration: BoxDecoration(shape: BoxShape.circle),
+            child: Image.network(
+              layoutCubit.patientModel[index].photo,
+              fit: BoxFit.cover,
+            ),
           ),
-          shrinkWrap: true,
-          itemCount: layoutCubit.patientModel.length,
-          physics: BouncingScrollPhysics()),
+
+          title: CustomText(
+            text: layoutCubit.patientModel[index].fullName,
+            fontSize: 16,
+            color: textcolor,
+            fontWeight: FontWeight.bold,
+          ),
+          subtitle: CustomText(
+            text: '8/9/2022',
+            fontSize: 14,
+            color: textcolor,
+          ),
+        ),
+      ),shrinkWrap: true,itemCount: layoutCubit.patientModel.length,physics: BouncingScrollPhysics()),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,6 +8,7 @@ import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
 import '../../../../constant/assets.dart';
 import '../../../../constant/color_manager.dart';
 import '../../../../constant/fun.dart';
+import '../../../../viewmodel/database/CacheHelper.dart';
 import '../../../component/app_component/custom_text.dart';
 
 class AboutusScreen extends StatelessWidget {
@@ -26,6 +28,19 @@ class AboutusScreen extends StatelessWidget {
           color: textcolor,
           fontWeight: FontWeight.bold,
         ),
+        leading: IconButton(
+            onPressed: () async {
+              CacheHelper.removeData(key: 'uid');
+              await FirebaseAuth.instance.signOut();
+
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  'LoginScreen',
+                      (Route<dynamic> route) => false);
+            },
+            icon: Icon(
+              Icons.exit_to_app_outlined,
+              color: textcolor,
+            )),
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),

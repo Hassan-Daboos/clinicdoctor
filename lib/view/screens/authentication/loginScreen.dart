@@ -94,9 +94,17 @@ class LoginScreen extends StatelessWidget {
                                 hintText: "Password",
                                 keyboardType: TextInputType.text,
                                 textInputAction: TextInputAction.next,
-                                isPassword: true,
-                                suffixIcon: Icons.remove_red_eye,
+                                isPassword: authCubit.isPassword,
+                                // suffixIcon: authCubit.isPassword ?Icons.remove_red_eye:Icons.visibility_off,
+                                suffixIcon:authCubit.isPassword ? GestureDetector(onTap: ()
+                                {
+                                  authCubit.changeEyeIcon();
+                                },child: Icon(Icons.remove_red_eye)):GestureDetector(onTap: (){
+                                  authCubit.changeEyeIcon();
+
+                                },child: Icon(Icons.visibility_off)),
                                 suffix: true,
+
                                 validator: (value) {
                                   if (value!.trim().isEmpty) {
                                     return "Password must be not Empty";
@@ -124,21 +132,24 @@ class LoginScreen extends StatelessWidget {
                                   }
                                   return null;
                                 },
+                                suffixOnPressed: (){
+                                  authCubit.changeEyeIcon();
+                                },
                               ),
                             ),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: TextButton(
-                                child: const Text(
-                                  'Forgot Password?',
-                                  style: TextStyle(
-                                      color: maincolor,
-                                      decoration: TextDecoration.underline,
-                                      fontSize: 12),
-                                ),
-                                onPressed: () {},
-                              ),
-                            ),
+                            // Align(
+                            //   alignment: Alignment.bottomRight,
+                            //   child: TextButton(
+                            //     child: const Text(
+                            //       'Forgot Password?',
+                            //       style: TextStyle(
+                            //           color: maincolor,
+                            //           decoration: TextDecoration.underline,
+                            //           fontSize: 12),
+                            //     ),
+                            //     onPressed: () {},
+                            //   ),
+                            // ),
                             SizedBox(
                               height: MediaQuery.of(context).size.height / 90,
                             ),
