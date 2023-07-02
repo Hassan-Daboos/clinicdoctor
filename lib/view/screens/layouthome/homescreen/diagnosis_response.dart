@@ -12,8 +12,7 @@ class DiagnosisResponse extends StatefulWidget {
   const DiagnosisResponse({Key? key}) : super(key: key);
 
   @override
-  State<DiagnosisResponse> createState() =>
-      _DiagnosisResponseState();
+  State<DiagnosisResponse> createState() => _DiagnosisResponseState();
 }
 
 class _DiagnosisResponseState extends State<DiagnosisResponse> {
@@ -29,66 +28,46 @@ class _DiagnosisResponseState extends State<DiagnosisResponse> {
 
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        title: CustomText(
+          text: 'Diagnosis',
+          fontSize: 25,
+          color: textcolor,
+          fontWeight: FontWeight.bold,
+        ),
+        leading:  IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: textcolor,
+            )),
+
+      ),
       body: ListView(
         shrinkWrap: true,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3,horizontal: 5),
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
             child: Card(
               child: ListTile(
                 minVerticalPadding: 20,
-                onTap: () {
-
-                },
+                onTap: () {},
                 title: CustomText(
                   text: layoutCubit.diagnosesResponse!.first.name,
                   fontSize: 18,
                   color: textcolor,
                   fontWeight: FontWeight.bold,
                 ),
-                // subtitle: CustomText(
-                //   text: '''${DateFormat.MMMd().format(
-                //     DateTime.parse(layoutCubit.reservationModel[index].date),
-                //   )} , From  ${layoutCubit.reservationModel[index].time}''',
-                //   fontSize: 14,
-                //   color: textcolor,
-                // ),
-                // trailing: CustomText(
-                //   text: layoutCubit.reservationModel[index].type,
-                //   fontSize: 14,
-                //   color: textseccolor,
-                // ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10.h,
-          ), Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3,horizontal: 5),
-            child: Card(
-              child: ListTile(
-                minVerticalPadding: 20,
-                onTap: () {
-
-                },
-                title: CustomText(
-                  text: layoutCubit.diagnosesResponse!.second.name,
-                  fontSize: 18,
+                subtitle: CustomText(
+                  text: "${layoutCubit.diagnosesResponse!.first.prob}",
+                  fontSize: 14,
                   color: textcolor,
-                  fontWeight: FontWeight.bold,
                 ),
-                // subtitle: CustomText(
-                //   text: '''${DateFormat.MMMd().format(
-                //     DateTime.parse(layoutCubit.reservationModel[index].date),
-                //   )} , From  ${layoutCubit.reservationModel[index].time}''',
-                //   fontSize: 14,
-                //   color: textcolor,
-                // ),
-                // trailing: CustomText(
-                //   text: layoutCubit.reservationModel[index].type,
-                //   fontSize: 14,
-                //   color: textseccolor,
-                // ),
               ),
             ),
           ),
@@ -96,35 +75,48 @@ class _DiagnosisResponseState extends State<DiagnosisResponse> {
             height: 10.h,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 3,horizontal: 5),
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
             child: Card(
               child: ListTile(
                 minVerticalPadding: 20,
-                onTap: () {
-
-                },
+                onTap: () {},
+                title: CustomText(
+                  text: layoutCubit.diagnosesResponse!.second.name,
+                  fontSize: 18,
+                  color: textcolor,
+                  fontWeight: FontWeight.bold,
+                ),
+                subtitle: CustomText(
+                  text: "${layoutCubit.diagnosesResponse!.second.prob}",
+                  fontSize: 14,
+                  color: textcolor,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+            child: Card(
+              child: ListTile(
+                minVerticalPadding: 20,
+                onTap: () {},
                 title: CustomText(
                   text: layoutCubit.diagnosesResponse!.third.name,
                   fontSize: 18,
                   color: textcolor,
                   fontWeight: FontWeight.bold,
                 ),
-                // subtitle: CustomText(
-                //   text: '''${DateFormat.MMMd().format(
-                //     DateTime.parse(layoutCubit.reservationModel[index].date),
-                //   )} , From  ${layoutCubit.reservationModel[index].time}''',
-                //   fontSize: 14,
-                //   color: textcolor,
-                // ),
-                // trailing: CustomText(
-                //   text: layoutCubit.reservationModel[index].type,
-                //   fontSize: 14,
-                //   color: textseccolor,
-                // ),
+                subtitle: CustomText(
+                  text: "${layoutCubit.diagnosesResponse!.third.prob}",
+                  fontSize: 14,
+                  color: textcolor,
+                ),
               ),
             ),
           ),
-
         ],
       ),
     );

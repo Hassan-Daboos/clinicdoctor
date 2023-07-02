@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
@@ -18,21 +17,17 @@ import '../../../view/screens/layouthome/profileScreens/ProfileScreen.dart';
 import '../../database/dio_helper.dart';
 import 'layout_states.dart';
 
+class LayoutCubit extends Cubit<LayoutStates> {
+  LayoutCubit() : super(LayoutInitialState());
 
-class LayoutCubit extends Cubit<LayoutStates>{
-  LayoutCubit():super(LayoutInitialState());
-  static LayoutCubit get(context)=> BlocProvider.of<LayoutCubit>(context);
+  static LayoutCubit get(context) => BlocProvider.of<LayoutCubit>(context);
+
   // String userToken = CacheHelper.getData(key: 'accessToken') ?? '';
 
-
-  List<Widget> screen =
-  [
+  List<Widget> screen = [
     HomeScreen(),
     ProfileScreen(),
     AboutusScreen(),
-
-
-
   ];
   int currentIndex = 0;
 
@@ -40,22 +35,18 @@ class LayoutCubit extends Cubit<LayoutStates>{
     currentIndex = index;
     emit(ChangeIndexState());
   }
-  List<UserModel> patientModel=[];
+
+  List<UserModel> patientModel = [];
+
   Future<void> getPatients() async {
-    patientModel=[];
+    patientModel = [];
     emit(PatientsInfoLoadingState());
 
-    await FirebaseFirestore.instance
-        .collection('users')
-        .get()
-        .then((value) {
+    await FirebaseFirestore.instance.collection('users').get().then((value) {
       print(value.docs[0].id);
       value.docs.forEach((element) {
         patientModel.add(UserModel.fromMap(element.data()));
       });
-
-
-
 
       emit(PatientsInfoSuccessState());
     }).catchError((onError) {
@@ -74,13 +65,13 @@ class LayoutCubit extends Cubit<LayoutStates>{
     await FirebaseFirestore.instance
         .collection('medicalHistory')
         .where(
-      'userId',
-      isEqualTo: userId,
-    )
+          'userId',
+          isEqualTo: userId,
+        )
         .get()
         .then((value) {
-          print(value.docs);
-          print(value);
+      print(value.docs);
+      print(value);
       value.docs.forEach((element) {
         patientMedicalHistoryModel
             .add(MedicalHistoryModel.fromMap(element.data()));
@@ -118,31 +109,49 @@ class LayoutCubit extends Cubit<LayoutStates>{
     });
 
   }
-  List<ReservationModel> reservationModel =[];
-  DateTime checkTime =DateTime.now();
 
+  // Diagnosis? aiModel;
+  // DiagnosesResponse? diagnosesResponse;
+  //
+  // Future<void> getDisease(List<String> inputs) async {
+  //   emit(DiseaseLoadingState());
+  //
+  //   String queryParam = inputs.map((input) => "'$input'").toList().join(",");
+  //   String url = "http://tonymalak.pythonanywhere.com/?input=[$queryParam]";
+  //
+  //   await Dio().get(url).then((value) {
+  //     print(value.data);
+  //     diagnosesResponse = DiagnosesResponse.fromJson(value.data);
+  //
+  //     emit(DiseaseSuccessState());
+  //   }).catchError((onError) {
+  //     print(onError);
+  //     emit(DiseaseErrorState());
+  //   });
+  // }
+
+  List<ReservationModel> reservationModel = [];
+  DateTime checkTime = DateTime.now();
 
   Future<void> getReservation() async {
-    reservationModel=[];
+    reservationModel = [];
     emit(GetReservationLoadingState());
 
     await FirebaseFirestore.instance
-        .collection('checked').where('date',isEqualTo: DateTime(
-      checkTime.year,
-      checkTime.month,
-      checkTime.day,
-      0, // 5 PM is hour 17 in 24-hour time
-      0,
-      0,
-    ).toString()).get()
+        .collection('checked')
+        .where('date',
+            isEqualTo: DateTime(
+              checkTime.year,
+              checkTime.month,
+              checkTime.day,
+              0, // 5 PM is hour 17 in 24-hour time
+              0,
+              0,
+            ).toString())
+        .get()
         .then((value) async {
-
-
-
-
-
-      if(!value.docs.isEmpty)
-      {
+      print(value.docs);
+      if (!value.docs.isEmpty) {
         value.docs.forEach((elementOne) {
           DateTime dateTime = DateTime(
             checkTime.year,
@@ -162,14 +171,16 @@ class LayoutCubit extends Cubit<LayoutStates>{
           );
           if (dateTime == DateTime.now()) {
             print('The dates are equal');
-            deleteDoc(doc: elementOne.id);
-            //delete
+
+            reservationModel.add(ReservationModel.fromMap(elementOne.data()));
+
           } else if (dateTime.isBefore(dateTime2)) {
             print('The date in the string is earlier');
             print(dateTime);
 
             reservationModel.add(ReservationModel.fromMap(elementOne.data()));
           } else {
+            print("DateTime");
             print(dateTime);
 
             deleteDoc(doc: elementOne.id);
@@ -177,15 +188,10 @@ class LayoutCubit extends Cubit<LayoutStates>{
 
             print('The date in the string is later');
           }
-
         });
-      }else
-      {
-
+      } else {
+        print('im in else');
       }
-
-
-
 
       emit(GetReservationSuccessState());
     }).catchError((onError) {
@@ -193,33 +199,27 @@ class LayoutCubit extends Cubit<LayoutStates>{
       emit(GetReservationErrorState());
     });
   }
-  Future<void> deleteDoc({String? doc}) {
 
-    return FirebaseFirestore.instance.collection('checked')
+  Future<void> deleteDoc({String? doc}) {
+    return FirebaseFirestore.instance
+        .collection('checked')
         .doc(doc)
         .delete()
         .then((value) {
       getReservation();
-    })
-        .catchError((error) => print("Failed to delete user: $error"));
+    }).catchError((error) => print("Failed to delete user: $error"));
   }
 
-
 // void setState(() {
- //  choice
- //      .forEach((element) {
- //  for (var element in element.subTitle) {
- //  element.select = false;
- //  }
- //  });
- //  choice[index].subTitle[index2].select =
- //  !choice[index]
- //      .subTitle[index2]
- //      .select;
- //  });
-
-
-
-
-
+//  choice
+//      .forEach((element) {
+//  for (var element in element.subTitle) {
+//  element.select = false;
+//  }
+//  });
+//  choice[index].subTitle[index2].select =
+//  !choice[index]
+//      .subTitle[index2]
+//      .select;
+//  });
 }

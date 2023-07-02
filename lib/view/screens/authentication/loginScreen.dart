@@ -49,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              height: MediaQuery.of(context).size.height / 15,
+                              height: MediaQuery.of(context).size.height / 5,
                             ),
                             // SvgPicture.asset(
                             //   'assets/images/Logo.svg',

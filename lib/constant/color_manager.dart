@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
    const Color textParagraph = Color(0xff3A3A3A);
      const Color orange = Color(0xffFF6600);
    const Color graydot = Color(0xffB7B7B7);
-const Color textseccolor = Color(0xff1E3A64);
 
 const Color cardColor = Color(0xffFBFBFB);
    const Color background = Color(0xffCAF6EF);
